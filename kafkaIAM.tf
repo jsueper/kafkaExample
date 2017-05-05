@@ -13,7 +13,10 @@ resource "aws_iam_role" "kafka_role" {
     {
       "Action": "sts:AssumeRole",
       "Principal": {
-        "Service": "ec2.amazonaws.com"
+        "Service": [
+          "ec2.amazonaws.com",
+          "ssm.amazonaws.com"
+        ]
       },
       "Effect": "Allow",
       "Sid": ""
@@ -52,7 +55,14 @@ resource "aws_iam_policy" "CloudWatchAccess" {
                "logs:PutLogEvents",
                "logs:DescribeLogGroups",
                "logs:DescribeLogStreams",
-               "logs:PutRetentionPolicy"
+               "logs:PutRetentionPolicy",
+               "ssm:*",
+               "ec2messages:AcknowledgeMessage",
+               "ec2messages:DeleteMessage",
+               "ec2messages:FailMessage",
+               "ec2messages:GetEndpoint",
+               "ec2messages:GetMessages",
+               "ec2messages:SendReply"
             ],
             "Resource": [
                 "*"
