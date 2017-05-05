@@ -1,7 +1,8 @@
 #!groovy
 
 // this is a comment3
-import groovy.json.JsonOutput   // using this to format our comment block when posting back to Github
+// using this to format our comment block when posting back to Github
+import groovy.json.JsonOutput   
 
 def colorS = "\033[1;34m"
 def colorE = "\033[0m"
@@ -24,7 +25,7 @@ node {
             ansiColor('bash') { 
                 echo(colorS + "This is the master branch, running terraform plan and apply" + colorE)
                // sh script: "docker run --rm -v $WORKSPACE:/tmp tf:latest /bin/bash -c 'cd /tmp; terraform init -force-copy; terraform plan -out=plan; terraform apply plan'", returnStdout: false
-		    sh script: "docker run -di -v $WORKSPACE:/tmp tf:latest bash", returnStdout: false
+		    sh script: "docker run --rm -v $WORKSPACE:/tmp tf:latest /bin/bash -c 'cd /tmp; terraform init -force-copy; terraform plan -out=plan; terraform apply plan;'", returnStdout: false
             }
         } else {
             ansiColor('bash') { 
