@@ -8,7 +8,7 @@ provider "aws" {
 terraform {
   backend "s3" {
     bucket = "terraform-kafka-bucket"
-    key    = "dev/terraform-dev.tfstate"
+    key    = "/dev/terraform-dev.tfstate"
     region = "us-west-2"
   }
 }
