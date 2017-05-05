@@ -24,7 +24,7 @@ node {
             ansiColor('bash') { 
                 echo(colorS + "This is the master branch, running terraform plan and apply" + colorE)
                // sh script: "docker run --rm -v $WORKSPACE:/tmp tf:latest /bin/bash -c 'cd /tmp; terraform init -force-copy; terraform plan -out=plan; terraform apply plan'", returnStdout: false
-		    sh script: "docker run -it $WORKSPACE:/tmp tf:latest bash", returnStdout: false
+		    sh script: "docker run -i $WORKSPACE:/tmp tf:latest bash", returnStdout: false
             }
         } else {
             ansiColor('bash') { 
