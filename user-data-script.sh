@@ -6,7 +6,7 @@ cd ~
 kafkaVer="kafka_2.11-0.10.2.0"
 if [ ! -d /opt/$kafkaVer ]
 then
-    wget "https://www.apache.org/dyn/closer.cgi?path=/kafka/0.10.2.0/kafka_2.11-0.10.2.0.tgz"
+    wget "http://apache.claz.org/kafka/0.10.2.0/kafka_2.11-0.10.2.0.tgz"
     tar -xvf $kafkaVer.tgz
     sudo mv $kafkaVer /opt
     cd /opt/$kafkaVer
