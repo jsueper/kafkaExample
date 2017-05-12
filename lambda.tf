@@ -1,7 +1,7 @@
 resource "aws_lambda_function" "ProcessQueueManager" {
  //  s3_bucket        = "commerce-sox-tpn-aut"
  //  s3_key           = "tuppence-account-updater-process-sqs-manager.jar"
-  filename         = "tuppence-account-updater-process-sqs-manager.jar"
+  filename         = "single-module/target/single-module-project.jar"
   function_name    = "AUProcessSqsManager"
   role             = "arn:aws:iam::808571453214:role/service-role/TestRole" 
   handler          = "com.ancestry.tuppence.account_updater.ProcessSQSMessage::handleRequest"
