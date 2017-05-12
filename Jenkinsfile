@@ -12,6 +12,7 @@ node {
     stage('Checkout') {
 
 	checkout scm
+	    
         ansiColor('bash') { 
             echo(colorS + "checking out branch: " + env.BRANCH_NAME + colorE)
             git_commit = sh script: "git rev-parse  HEAD", returnStdout: true
@@ -19,6 +20,12 @@ node {
         }
     }
 
+   stage('Maven') {
+	ansiColor('bash') { 
+            echo(colorS + "running mvn clean install" + env.BRANCH_NAME + colorE)  	    
+	    sh script: 'docker run -it --rm -v $WORKSPACE:/tmp -w /usr/src/mymaven maven:3.2-jdk-7 mvn clean install -U'
+	}
+   }
     stage('RunTerraform') {
 
         if (env.BRANCH_NAME == 'master') {
