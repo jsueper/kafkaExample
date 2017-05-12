@@ -4,10 +4,11 @@
 // using this to format our comment block when posting back to Github
 import groovy.json.JsonOutput   
 
-def colorS = "\033[1;34m"
-def colorE = "\033[0m"
 
 def buildPipeline() {
+	def colorS = "\033[1;34m"
+	def colorE = "\033[0m"
+
 	node {
 
 	    stage('Checkout') {
