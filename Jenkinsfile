@@ -1,6 +1,7 @@
 #!/usr/bin/env groovy
 
 // pull maven
+checkout scm
  def exists = fileExists 'pom.xml'
 	      if (exists) { 
 		stage('Maven') {
