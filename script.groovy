@@ -23,16 +23,6 @@ def buildPipeline() {
 		}
 	    }
 
-	    def exists = fileExists 'pom.xml'
-	      if (exists) { 
-		stage('Maven') {
-		    ansiColor('bash') { 
-			echo(colorS + "running mvn clean install" + env.BRANCH_NAME + colorE)  	    
-			sh script: "docker run --rm -v $WORKSPACE:/tmp maven:3.2-jdk-7 /bin/bash -c 'cd /tmp; mvn clean install -U;'", returnStdOut: false
-		    }
-		 }  
-	      } else {}
-
 
 	    stage('RunTerraform') {
 
