@@ -12,7 +12,7 @@
   <description>Just a pom that makes it easy to build both projects at the same time.</description>
 
   <modules>
-    <module>multi-module</module>
+    <module>single-module</module>
   </modules>
 
   <prerequisites>
