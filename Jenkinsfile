@@ -19,13 +19,18 @@ node {
             githubAPI = "https://api.github.com/repos/ShehryarAbbasi/testjenkinsfile/commits/${git_commit.trim()}/comments"
         }
     }
+	 
+    def exists = fileExists 'pom.xml'
+      if (exists) { 
+        stage('Maven') {
+	    ansiColor('bash') { 
+                echo(colorS + "running mvn clean install" + env.BRANCH_NAME + colorE)  	    
+	        sh script: 'docker run -it --rm -v $WORKSPACE:/tmp -w /usr/src/mymaven maven:3.2-jdk-7 mvn clean install -U'
+	    }
+         }  
+      } else {}
 
-   stage('Maven') {
-	ansiColor('bash') { 
-            echo(colorS + "running mvn clean install" + env.BRANCH_NAME + colorE)  	    
-	    sh script: 'docker run -it --rm -v $WORKSPACE:/tmp -w /usr/src/mymaven maven:3.2-jdk-7 mvn clean install -U'
-	}
-   }
+ 
     stage('RunTerraform') {
 
         if (env.BRANCH_NAME == 'master') {
