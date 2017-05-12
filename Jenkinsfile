@@ -17,6 +17,7 @@ node {
             echo(colorS + "checking out branch: " + env.BRANCH_NAME + colorE)
             git_commit = sh script: "git rev-parse  HEAD", returnStdout: true
             githubAPI = "https://api.github.com/repos/ShehryarAbbasi/testjenkinsfile/commits/${git_commit.trim()}/comments"
+	    sh script: "ls -l"
         }
     }
 	 
@@ -25,7 +26,7 @@ node {
         stage('Maven') {
 	    ansiColor('bash') { 
                 echo(colorS + "running mvn clean install" + env.BRANCH_NAME + colorE)  	    
-	        sh script: 'docker run --rm -v $WORKSPACE:/tmp maven:3.2-jdk-7 mvn clean install -U'
+	        sh script: "docker run --rm -v $WORKSPACE:/tmp maven:3.2-jdk-7 /bin/bash -c 'cd /tmp; mvn clean install -U"
 	    }
          }  
       } else {}
