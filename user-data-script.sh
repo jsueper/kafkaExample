@@ -18,3 +18,8 @@ fi
 (sudo bin/kafka-server-start.sh config/server.properties)
 cd /opt/$kafkaVer
 (sudo bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic testTopic)
+
+# pull down our repo with serverspec tests and run tests
+git clone https://github.com/ShehryarAbbasi/kafkaExample.git
+cd kafkaExample
+rake spec
