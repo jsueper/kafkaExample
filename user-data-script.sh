@@ -20,6 +20,7 @@ cd /opt/$kafkaVer
 (sudo bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic testTopic)
 
 # pull down our repo with serverspec tests and run tests
+sudo yum install -y git
 git clone https://github.com/ShehryarAbbasi/kafkaExample.git
 cd kafkaExample
 rake spec
