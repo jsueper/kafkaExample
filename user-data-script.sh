@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# update yum, install AWS SSM agent
+# update yum, install AWS cloudwatch agent and SSM agent
 sudo yum update -y
-cd /tmp
-sudo yum install -y https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm
+sudo yum install -y awslogs https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm
+sudo service awslogs start && sudo chkconfig awslogs on
 
 # install and run Zookeeper + Kafka in the background, create a generic Kafka Topic
 cd ~
