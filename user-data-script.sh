@@ -24,7 +24,7 @@ cd /opt/$kafkaVer
 (sudo bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic testTopic)
 
 # pull down repo to run serverspec tests
-
+cd /tmp
 sudo yum install -y git gcc ruby-devel rubygems rake
 sudo gem install io-console serverspec && echo "1\n2" | serverspec-init
 cd /home/ec2-user/
