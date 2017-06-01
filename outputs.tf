@@ -1,3 +1,3 @@
 output "ip" {
-  value = "${aws_resource.kafka.public_ip}"
+  value = "${aws_instance.kafka.public_ip}"
 }
