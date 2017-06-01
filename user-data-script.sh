@@ -20,6 +20,7 @@ cd /opt/$kafkaVer
 (sudo bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic testTopic)
 
 # pull down our repo with serverspec tests and run tests
+cd /home/ec2-user/
 sudo yum install -y git ruby-devel gcc rubygems
 # sudo gem update --system
 sudo gem install io-console
@@ -28,3 +29,5 @@ echo "1\n2" | serverspec-init
 git clone https://github.com/ShehryarAbbasi/kafkaExample.git
 cd kafkaExample
 rake spec
+cd /home/ec2-user/
+echo "done" > sys.log
