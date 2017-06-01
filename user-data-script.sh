@@ -8,7 +8,7 @@ sudo service awslogs start && sudo chkconfig awslogs on
 
 ## APP SPECIFIC SETUP ##
 ## install and run Zookeeper + Kafka in the background, create a generic Kafka Topic
-cd ~
+cd /tmp
 kafkaVer="kafka_2.11-0.10.2.0"
 if [ ! -d /opt/$kafkaVer ]
 then
@@ -27,7 +27,7 @@ cd /opt/$kafkaVer
 
 ## RUN TESTS ##
 ## pull down repo to run serverspec tests
-cd ~
+cd /home/ec2-user/
 sudo yum install -y git gcc ruby-devel rubygems rake
 sudo gem install io-console serverspec
 git clone https://github.com/ShehryarAbbasi/kafkaExample.git && cd kafkaExample/tests/
