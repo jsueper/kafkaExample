@@ -5,10 +5,8 @@ sudo gem install io-console serverspec
 echo "1\n2" | serverspec-init
 cd /home/ec2-user/
 git clone https://github.com/ShehryarAbbasi/kafkaExample.git
-cd kafkaExample
+cd kafkaExample/spec
 rake spec
-cd /home/ec2-user/
-echo "done" > sys.log
 
 cd /tmp
 sudo yum install -y https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm
