@@ -27,6 +27,5 @@ cd /opt/$kafkaVer
 cd /tmp
 sudo yum install -y git gcc ruby-devel rubygems rake
 sudo gem install io-console serverspec && echo "1\n2" | serverspec-init
-cd /home/ec2-user/
 git clone https://github.com/ShehryarAbbasi/kafkaExample.git && cd kafkaExample
 rake spec
