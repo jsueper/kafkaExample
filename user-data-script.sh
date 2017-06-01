@@ -1,11 +1,13 @@
 #!/bin/bash
 
-# update yum, install AWS cloudwatch agent and SSM agent
+## GENERAL SETUP ##
+## update yum, install and start AWS cloudwatch agent, install AWS SSM agent
 sudo yum update -y
 sudo yum install -y awslogs https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm
 sudo service awslogs start && sudo chkconfig awslogs on
 
-# install and run Zookeeper + Kafka in the background, create a generic Kafka Topic
+## APP SPECIFIC SETUP ##
+## install and run Zookeeper + Kafka in the background, create a generic Kafka Topic
 cd ~
 kafkaVer="kafka_2.11-0.10.2.0"
 if [ ! -d /opt/$kafkaVer ]
@@ -23,7 +25,8 @@ fi
 cd /opt/$kafkaVer
 (sudo bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic testTopic)
 
-# pull down repo to run serverspec tests
+## RUN TESTS ##
+## pull down repo to run serverspec tests
 cd ~
 sudo yum install -y git gcc ruby-devel rubygems rake
 sudo gem install io-console serverspec
