@@ -32,3 +32,4 @@ sudo yum install -y git gcc ruby-devel rubygems rake
 sudo gem install io-console serverspec
 git clone https://github.com/ShehryarAbbasi/kafkaExample.git && cd kafkaExample/tests/
 rake spec
+sudo sed "s/^/$(date)/" spec/Reports/test_report.json
