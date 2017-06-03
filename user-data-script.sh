@@ -41,7 +41,7 @@ sudo tee /etc/awslogs/config/serverspec_results.conf > /dev/null <<EOF
 datetime_format = %b %d %H:%M:%S
 file = /home/ec2-user/kafkaExample/tests/spec/Reports/test_report.json
 buffer_duration = 5000
-log_stream_name = {instance_id}-test-results
+log_stream_name = {instance_id}
 initial_position = start_of_file
 log_group_name = /tests/serverspec
 EOF
