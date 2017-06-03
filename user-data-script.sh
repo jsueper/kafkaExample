@@ -4,7 +4,7 @@
 ## update yum, install and start AWS cloudwatch agent, install AWS SSM agent
 sudo yum update -y
 sudo yum install -y awslogs https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm
-sudo service awslogs start && sudo chkconfig awslogs on
+
 
 ## APP SPECIFIC SETUP ##
 ## install and run Zookeeper + Kafka in the background, create a generic Kafka Topic
@@ -25,17 +25,6 @@ fi
 cd /opt/$kafkaVer
 (sudo bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic testTopic)
 
-## CONFIGURE CLOUDWATCH TO PICKUP UPCOMING TEST RESULTS
-sudo tee /etc/awslogs/config/serverspec_results.conf > /dev/null <<EOF
-[/tests/serverspec]
-datetime_format = %b %d %H:%M:%S
-file = /home/ec2-user/kafkaExample/tests/spec/Reports/test_report.json
-buffer_duration = 5000
-log_stream_name = {instance_id}-test-results
-initial_position = start_of_file
-log_group_name = /tests/serverspec
-EOF
-
 
 ## RUN TESTS ##
 ## pull down repo to run serverspec tests
@@ -46,3 +35,14 @@ git clone https://github.com/ShehryarAbbasi/kafkaExample.git && cd kafkaExample/
 rake spec
 sudo sed -i "s/^/$(date)/" spec/Reports/test_report.json
 
+## CONFIGURE CLOUDWATCH TO PICKUP OUR TEST REPORT JSON FILE
+sudo tee /etc/awslogs/config/serverspec_results.conf > /dev/null <<EOF
+[/tests/serverspec]
+datetime_format = %b %d %H:%M:%S
+file = /home/ec2-user/kafkaExample/tests/spec/Reports/test_report.json
+buffer_duration = 5000
+log_stream_name = {instance_id}-test-results
+initial_position = start_of_file
+log_group_name = /tests/serverspec
+EOF
+sudo service awslogs start && sudo chkconfig awslogs on
