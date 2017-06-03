@@ -25,6 +25,18 @@ fi
 cd /opt/$kafkaVer
 (sudo bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic testTopic)
 
+## CONFIGURE CLOUDWATCH TO PICKUP UPCOMING TEST RESULTS
+sudo tee /etc/awslogs/config/serverspec_results.conf > /dev/null <<EOF
+[/tests/serverspec]
+datetime_format = %b %d %H:%M:%S
+file = /home/ec2-user/kafkaExample/tests/spec/Reports/test_report.json
+buffer_duration = 5000
+log_stream_name = {instance_id}-test-results
+initial_position = start_of_file
+log_group_name = /tests/serverspec
+EOF
+
+
 ## RUN TESTS ##
 ## pull down repo to run serverspec tests
 cd /home/ec2-user/
@@ -32,4 +44,5 @@ sudo yum install -y git gcc ruby-devel rubygems rake
 sudo gem install io-console serverspec
 git clone https://github.com/ShehryarAbbasi/kafkaExample.git && cd kafkaExample/tests/
 rake spec
-sudo sed "s/^/$(date)/" spec/Reports/test_report.json
+sudo sed -i "s/^/$(date)/" spec/Reports/test_report.json
+
