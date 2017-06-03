@@ -33,12 +33,12 @@ sudo yum install -y git gcc ruby-devel rubygems rake
 sudo gem install io-console serverspec
 git clone https://github.com/ShehryarAbbasi/kafkaExample.git && cd kafkaExample/tests/
 rake spec
-sudo sed -i "s/^/$(date)/" spec/Reports/test_report.json
+sudo sed -i "s/^/$(date +%b-%d-%H:%M:%S)/" spec/Reports/test_report.json
 
 ## CONFIGURE CLOUDWATCH TO PICKUP OUR TEST REPORT JSON FILE
 sudo tee /etc/awslogs/config/serverspec_results.conf > /dev/null <<EOF
 [/tests/serverspec]
-datetime_format = %b %d %H:%M:%S
+datetime_format = %b-%d-%H:%M:%S
 file = /home/ec2-user/kafkaExample/tests/spec/Reports/test_report.json
 buffer_duration = 5000
 log_stream_name = {instance_id}
