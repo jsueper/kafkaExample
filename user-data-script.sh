@@ -4,7 +4,7 @@
 ## update yum, install and start AWS cloudwatch agent, install AWS SSM agent
 sudo yum update -y
 sudo yum install -y awslogs https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm
-
+sudo service awslogs start && sudo chkconfig awslogs on
 
 ## APP SPECIFIC SETUP ##
 ## install and run Zookeeper + Kafka in the background, create a generic Kafka Topic
@@ -35,7 +35,11 @@ git clone https://github.com/ShehryarAbbasi/kafkaExample.git && cd kafkaExample/
 rake spec
 sudo sed -i "s/^/$(date +%b-%d-%H:%M:%S) /" spec/Reports/test_report.json
 
-## CONFIGURE CLOUDWATCH TO PICKUP OUR TEST REPORT JSON FILE
+## CONFIGURE CLOUDWATCH TO PICKUP OUR TEST REPORT JSON FILE & RESTART AWSLOGS SERVICE
+while [ ! -f /home/ec2-user/kafkaExample/tests/spec/Reports/test_report.json ]
+do
+  sleep 2
+done
 sudo tee /etc/awslogs/config/serverspec_results.conf > /dev/null <<EOF
 [/tests/serverspec]
 datetime_format = %b-%d-%H:%M:%S
@@ -45,4 +49,4 @@ log_stream_name = {instance_id}
 initial_position = start_of_file
 log_group_name = /tests/serverspec
 EOF
-sudo service awslogs start && sudo chkconfig awslogs on
+sudo service awslogs restart
