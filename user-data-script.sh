@@ -38,7 +38,8 @@ rake spec
 ## CONFIGURE CLOUDWATCH TO PICKUP OUR TEST REPORT JSON FILE & RESTART AWSLOGS SERVICE
 sudo tee -a /etc/awslogs/awslogs.conf > /dev/null <<EOF
 [/tests/serverspec]
-file = /home/ec2-user/kafkaExample/tests/spec/Reports/*.json
+multi_line_start_pattern = '^{\"version\"'
+file = /home/ec2-user/kafkaExample/tests/spec/Reports/test_report.json*
 buffer_duration = 5000
 log_stream_name = {instance_id}
 initial_position = start_of_file
