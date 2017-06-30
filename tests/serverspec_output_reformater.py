@@ -3,8 +3,8 @@
 # writes a new JSON to /home/ec2-user/new-b.json
 
 import json
-testreport="/home/ec2-user/kafkaExample/tests/spec/Reports/test_report.json"
-with open(testreport) as b:
+testreportdir="/home/ec2-user/kafkaExample/tests/spec/Reports/"
+with open(testreportdir+"test_report.json") as b:
     b = json.load(b)
 
 for example in b["examples"]:
@@ -29,5 +29,5 @@ del b["version"]
 del b["summary_line"]
 del b["summary"]
 
-with open("/home/ec2-user/new-b.json", "w") as new_b:
+with open(testreportdir+"reformatted_test_results.json", "w") as new_b:
     json.dump(b, new_b, indent=1, separators=(',', ': '))
