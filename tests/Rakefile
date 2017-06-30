@@ -3,7 +3,7 @@ require 'rspec/core/rake_task'
 require 'date'
 require "open-uri"
 
-@instanceId = URI.parse("https://169.254.169.254/latest/meta-data/instance-id/").read
+#@instanceId = URI.parse("https://169.254.169.254/latest/meta-data/instance-id/").read
 
 task :spec    => 'spec:all'
 task :default => :spec
@@ -28,7 +28,7 @@ namespace :spec do
       ENV['TARGET_HOST'] = original_target
       t.pattern = "spec/#{original_target}/*_spec.rb"
       t.fail_on_error = false
-      t.rspec_opts = "--format documentation --format json --out spec/Reports/test_report.json.#{timestamp}.#{instanceId}"
+      t.rspec_opts = "--format documentation --format json --out spec/Reports/test_report.json"
     end
   end
 end
