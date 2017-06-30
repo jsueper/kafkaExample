@@ -1,6 +1,7 @@
+# serverspec outputs test results to /home/ec2-user/kafkaExample/tests/spec/Reports/test_report.json
 # this script gets the serverspec JSON test report
 # reformats the JSON structure to match Zabbix LLD type
-# writes a new JSON to /home/ec2-user/new-b.json
+# writes a new JSON to /home/ec2-user/kafkaExample/tests/spec/Reports/reformatted_test_results.json
 
 import json
 testreportdir="/home/ec2-user/kafkaExample/tests/spec/Reports/"
