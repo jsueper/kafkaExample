@@ -32,7 +32,7 @@ cd /home/ec2-user/
 sudo yum install -y git gcc ruby-devel rubygems rake
 sudo gem install io-console serverspec
 git clone https://github.com/ShehryarAbbasi/kafkaExample.git && cd kafkaExample/tests/
-rake spec
+rake spec && python /home/ec2-user/tests/serverspec_output_reformater.py
 # sudo sed -i "s/^/$(date +%b-%d-%H:%M:%S) /" spec/Reports/test_report.json
 
 ## CONFIGURE CLOUDWATCH TO PICKUP OUR TEST REPORT JSON FILE & RESTART AWSLOGS SERVICE
